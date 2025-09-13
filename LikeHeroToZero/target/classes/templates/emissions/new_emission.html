@@ -1,0 +1,63 @@
+<!--
+    new_emission.html
+
+    Formular zur Erfassung neuer CO₂-Emissionen für Wissenschaftler.
+    Best Practices: Barrierefreiheit, Fehlermeldungen, Validierung und konsistentes UI.
+    Wichtige Bereiche:
+    - Fehlermeldungen: Anzeige bei Validierungsfehlern
+    - Auswahl Land, Jahr, Emissionswert: Pflichtfelder mit Validierung
+    - Buttons: Hinzufügen und Abbrechen
+-->
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Neue CO₂-Daten erfassen</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/new_emission.css}">
+</head>
+<body class="bg-light">
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card emission-card shadow-sm">
+        <div class="card-body d-flex flex-column align-items-center">
+
+            <h1 class="display-4 text-center mb-4">Neue Co₂ Daten erfassen</h1>
+
+            <!-- Formular zur Erfassung neuer Emissionsdaten -->
+            <form th:action="@{/scientist/emissions}" th:object="${form}" method="post" class="w-100" style="max-width:350px;">
+                <!-- Fehlermeldungen anzeigen, falls Validierung fehlschlägt -->
+                <div th:if="${#fields.hasErrors() or #fields.hasGlobalErrors()}" class="alert alert-danger w-100 text-center mb-3">
+                    <ul class="mb-0" style="list-style:none;padding-left:0;">
+                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+                <div class="mb-3">
+                    <!-- Auswahl des Landes (Pflichtfeld) -->
+                    <select id="countryId" th:field="*{countryId}" class="form-select" required>
+                        <option value="" disabled selected>Land</option>
+                        <option th:each="c : ${countries}" th:value="${c.id}" th:text="${c.name}">Land</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <!-- Eingabe des Jahres (Pflichtfeld, Bereich 1850-3000) -->
+                    <input id="year" type="number" th:field="*{year}" min="1850" max="3000"
+                           class="form-control" placeholder="Jahr" required/>
+                </div>
+                <div class="mb-4">
+                    <!-- Eingabe der CO₂-Emissionen (Pflichtfeld, ≥ 0) -->
+                    <input id="co2Kt" type="number" th:field="*{co2Kt}" min="0"
+                           class="form-control" placeholder="CO2 (kt)" required/>
+                </div>
+                <div class="d-flex justify-content-center gap-3">
+                    <!-- Button zum Absenden des Formulars -->
+                    <button type="submit" class="btn btn-success emission-btn">Hinzufügen</button>
+                    <!-- Button zum Abbrechen und Zurück zum Dashboard -->
+                    <a th:href="@{/scientist/dashboard}" class="btn btn-danger emission-btn">Abbrechen</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

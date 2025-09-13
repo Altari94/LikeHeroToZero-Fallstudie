@@ -1,0 +1,31 @@
+#
+# application.yml
+#
+# Zentrale Konfigurationsdatei für LikeHeroToZero (Spring Boot).
+# Best Practices: Trennung von Umgebungen, sichere Credentials, klare Struktur.
+#
+# Wichtige Bereiche:
+# - Datenbank: H2-Konfiguration für Entwicklung
+# - JPA: Hibernate-Einstellungen
+# - Flyway: Migrationen und Pfade
+# - H2-Konsole: Für lokale Entwicklung
+#
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/lhtz;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE # H2-Datenbank für Entwicklung
+    username: sa # Standard-User für H2
+    password: # Kein Passwort für lokale H2-DB
+    driver-class-name: org.h2.Driver # H2-Treiber
+  jpa:
+    hibernate:
+      ddl-auto: none # Keine automatische Schema-Generierung, nur Migrationen
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect # H2-Dialect für Hibernate
+  h2:
+    console:
+      enabled: true # H2-Webkonsole aktivieren
+      path: /h2 # Pfad zur H2-Konsole
+  flyway:
+    enabled: true # Flyway-Migrationen aktivieren
+    locations: classpath:db/migration # Pfad zu den SQL-Migrationen

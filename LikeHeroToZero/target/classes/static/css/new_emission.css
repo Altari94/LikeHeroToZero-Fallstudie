@@ -1,0 +1,54 @@
+/*
+ * new_emission.css
+ *
+ * Styles für das Formular zur Erfassung neuer CO₂-Emissionen.
+ * Fokus: Übersichtliches Layout, Barrierefreiheit und konsistente UI-Elemente.
+ *
+ * Wichtige Bereiche:
+ * - emission-card: Hauptcontainer für das Formular
+ * - form-control/form-select: Eingabefelder und Dropdowns
+ * - emission-btn: Button für das Absenden
+ */
+body {
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+
+/* Hauptcontainer für das Emissionsformular */
+.emission-card {
+    border: 2px solid #222;
+    border-radius: 0;
+    background: #fff;
+    max-width: 900px;
+    width: 100%;
+    padding: 3rem 2rem 2.5rem 2rem;
+}
+
+.emission-card h1 {
+    font-weight: 400;
+    font-size: 3rem;
+    margin-bottom: 2.5rem;
+}
+
+/* Eingabefelder und Dropdowns */
+.form-control, .form-select {
+    font-size: 1.2rem;
+    padding: 0.8rem 1rem;
+    background: #fafafa;
+    border-radius: 6px;
+    border: 1.5px solid #ddd;
+    transition: border 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+    border: 1.5px solid #a3bffa;
+    box-shadow: none;
+}
+
+/* Button für das Absenden des Formulars */
+.emission-btn {
+    min-width: 130px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    transition: background 0.2s;
+}
